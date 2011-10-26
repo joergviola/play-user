@@ -15,7 +15,7 @@ h1. Quickstart
 Pull this repo.
  
 Configure dependencies.yml to your local repository:
-@ 
+<pre><code>
 - local -> user 1.0
 
 repositories: 
@@ -24,16 +24,16 @@ repositories:
        artifact:   "${application.path}/../../[module]" 
        contains: 
          - local -> * 
-@
+</code></pre>
 Since fbgraph requires it, add to application.conf:
-@
+<pre><code>
 fbg.appId={YOUR_APP_ID}
 fbg.appSecret={YOUR_APP_SECRET}
-@
+</code></pre>
 (you need not actually fill these entries).
 
 Create a controllers.UserProvider:
-@
+<pre><code>
 public class UserProvider extends Security.UserProvider {
 
 	public static boolean authenticate(String username, String password) {
@@ -52,7 +52,7 @@ public class UserProvider extends Security.UserProvider {
 		...
 	}
 }
-@
+</code></pre>
 Where the methods are:
  * authenticate: Same as secure, check user credentials, but password is already encrypted
  * check: Same as secure, check role of current user

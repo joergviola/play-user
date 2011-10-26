@@ -1,0 +1,71 @@
+h1. Introduction
+
+play-user is an authentication module for the play! framework.
+ * Sits on top of the scure-Module
+ * user logon and logout
+ * registration
+ * activation mails
+ * facebook connect
+
+BEWARE! This is an early release! 
+All texts currently in german!
+
+h1. Quickstart
+
+Pull this repo.
+ 
+Configure dependencies.yml to your local repository:
+@ 
+- local -> user 1.0
+
+repositories: 
+   - local: 
+       type:       local 
+       artifact:   "${application.path}/../../[module]" 
+       contains: 
+         - local -> * 
+@
+Since fbgraph requires it, add to application.conf:
+@
+fbg.appId={YOUR_APP_ID}
+fbg.appSecret={YOUR_APP_SECRET}
+@
+(you need not actually fill these entries).
+
+Create a controllers.UserProvider:
+@
+public class UserProvider extends Security.UserProvider {
+
+	public static boolean authenticate(String username, String password) {
+	  	...
+	}
+
+	public static boolean check(String profile) {
+		...
+	}
+	
+	public static void create(String email, String activation, String password, String facebookId) {
+		...
+	}
+
+	public static boolean activate(String email, String activation) {
+		...
+	}
+}
+@
+Where the methods are:
+ * authenticate: Same as secure, check user credentials, but password is already encrypted
+ * check: Same as secure, check role of current user
+ * create: Create a new user, store also its activation code and if applicable its facebookId, password is already encrypted
+ * activate: Activate an account
+ 
+In your templates, you can use:
+ * @#{user.info/}@: Displays user name or a login link
+ * @#{user.authenticated}@: Use around a section of the page that contains protected information. If not logged in, a register form is displayed instead.
+ 
+Overload the following files to customize:
+ * controller.Security.UserProvider: See above
+ * views.Mails.activation.txt: Body of activation mail
+ * views.Security.activate.html: Page displayed when activation failed.
+ * views.user.login.html: Register page
+  

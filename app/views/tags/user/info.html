@@ -1,0 +1,26 @@
+#{if session.get("username")!=null}
+	${session.get("username")} <a href="/logout">Abmelden</a>
+#{/if}
+#{else}
+<script type="text/javascript">
+<!--
+function anmelden() {
+	var box = document.getElementById("loginbox");
+	if (box.style.display=="none")
+		box.style.display="inline";
+	else 
+		document.forms[0].submit();
+		
+}
+//-->
+</script>
+	<span id="loginbox" style="display:none">
+		#{form @Secure.login(), method:'POST'}
+			<input type="text" size="10" name="username"> 
+			<input type="password" size="10" name="password"> 
+			<br>
+			<input type="submit" value="Weiter!">
+		#{/form}
+	</span>
+	<a href="javascript:anmelden();">Anmelden</a>
+#{/else}

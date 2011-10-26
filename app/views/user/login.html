@@ -1,0 +1,46 @@
+<div style="float:left">
+Anmelden
+		#{form @Security.login(), method:'POST'}
+			<input type="text" size="10" name="email"> 
+			<br>
+			<input type="password" size="10" name="password"> 
+			<br>
+			<input type="submit" value="Weiter!">
+		#{/form}
+</div>
+<div style="float:left">
+oder 
+#{fbg.script /}
+<script type="text/javascript">
+    function facebookLogin() {
+        // get current login status from facebook.com
+        FB.getLoginStatus(function(response) {
+            if (response.session) {
+                // logged in and connected user, someone you know
+                window.location = "@{Security.facebookLogin()}";
+            } else {
+                window.location = "@{Secure.logout()}";
+            }
+        });
+    }
+</script>
+<fb:login-button onlogin="facebookLogin();"></fb:login-button>
+
+</div>
+<div style="float:left">
+oder Registrieren:
+		#{form @Security.register(), method:'POST'}
+			E-Mail:
+			<input type="text" size="10" name="email"> 
+			<br>
+			Kennwort:
+			<input type="password" size="10" name="password"> 
+			<br>
+			Kennwort wiederholen
+			<input type="password" size="10" name="password2"> 
+			<br>
+			<input type="submit" value="Weiter!">
+		#{/form}
+</div>
+<div style="float:clear">
+</div>

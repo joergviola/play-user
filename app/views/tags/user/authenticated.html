@@ -1,0 +1,6 @@
+#{if session.get("username")!=null}
+	 #{doBody /}
+#{/if}
+#{else}
+	#{include 'user/login.html' /}
+#{/else}

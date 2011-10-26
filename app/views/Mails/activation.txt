@@ -1,0 +1,3 @@
+Zur Aktivierung bitte folgenden Link aufrufen:
+
+@@{Security.activate(to, code)}
